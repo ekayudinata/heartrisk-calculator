@@ -46,6 +46,19 @@
 </head>
 
 <body>
+
+    @if (session()->has('success'))
+    <script>
+        Swal.fire({
+            title: 'LAMARAN TERKIRIM',
+            text: '{{ session("success")  }}',
+            icon: 'success',
+            showConfirmButton: false, 
+            showCloseButton:true
+        })
+    </script>
+    @endif
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <div class="container">
             <a href="https://www.omsamedic.com/" class="navbar-brand"><img src="img/logo.png" alt="" width="150px"></a>
@@ -56,7 +69,7 @@
         {{-- <h3 class="mb-5 mt-5 text-center"><b>{{ $title }}</b> - OMSA MEDIC</h3> --}}
         <h3 class="mb-5 mt-5 text-center"><b>Heart Risk Calculator</b> - OMSA MEDIC</h3>
         
-        <form action="/" method="post" enctype="multipart/form-data">
+        <form action="/hearriskcalculate" method="post" enctype="multipart/form-data">
             @csrf
             <div class="container-fluid">
                 <div class="row">
@@ -80,8 +93,9 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label>Berapa Usia Anda?</label>
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example" name="agerange">
                                                 <option value="" selected>Pilih Usia Anda</option>
+                                                <option value="<=44"><= 44</option>
                                                 <option value="55-59">55-59</option>
                                                 <option value="60-64">60-64</option>
                                                 <option value="65-69">65-69</option>
@@ -90,7 +104,7 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label>Berapa Berat Badan Anda?</label>
-                                            <input type="number" class="form-control" placeholder="Masukkan berat badan" name="" required>
+                                            <input type="number" class="form-control" placeholder="Masukkan berat badan" name="weight" required>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
                                     </div>
@@ -102,94 +116,41 @@
                                                 <label>Apakah Anda merokok?</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                              <input class="form-check-input" type="radio" name="type" value="Y" checked>
+                                              <input class="form-check-input" type="radio" name="smoking" value="Y" checked>
                                               <label class="form-check-label">Ya</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                              <input class="form-check-input" type="radio" name="type" value="N">
+                                              <input class="form-check-input" type="radio" name="smoking" value="N">
                                               <label class="form-check-label">Tidak</label>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label>Berapa tekanan darah atas/sistol Anda?</label>
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example" name="bloodpressure">
                                                 <option value="" selected>Pilih tekanan darah atas/sistol Anda</option>
                                                 <option value="<120"> <120 </option>
                                                 <option value="120-139">120-139</option>
                                                 <option value="140-159">140-159</option>
                                                 <option value="160-179">160-179</option>
-                                                <option value="≥180">≥180</option>
+                                                <option value=">=180">≥180</option>
                                             </select>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label>Berapa tinggi badan Anda?</label>
-                                            <input type="number" class="form-control" placeholder="Masukkan usia" name="" required>
+                                            <input type="number" class="form-control" placeholder="Masukkan Tinggi" name="height" required>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
-                                        <a href="" type="submit" class="btn btn-success float-right"> <i class="fas fa-ad"></i> Hitung Resiko Saya</a>
+                                        <input type="submit" class="btn btn-success float-right">
+                                        {{-- <a type="submit" class="btn btn-success float-right"> <i class="fas fa-ad"></i> Hitung Resiko Saya</a> --}}
                                     </div>
                                 </div>
                             </div>
                             
                         </div> 
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div>
-                                        <label>Jenis Kelamin Anda</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="type" value="Medical" checked>
-                                      <label class="form-check-label">Laki-laki</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="type" value="Non Medical">
-                                      <label class="form-check-label">Perempuan</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Berapa Usia Anda?</label>
-                                        <input type="number" class="form-control" placeholder="Masukkan usia" name="" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Berapa Berat Badan Anda?</label>
-                                        <input type="number" class="form-control" placeholder="Masukkan berat badan" name="" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Kirim Lamaran Anda</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Pastikan semua data sudah benar! kirim lamaran?
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Kirim</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-
         </form>
 
 
@@ -224,61 +185,6 @@
     </script>
     <script src="js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-    
-    {{-- <script>
-        function thisFileUpload() {
-            document.getElementById("pp").click();
-        };
-    </script>
-    
-    <script>
-        function showPreview(event) {
-            if (event.target.files.length > 0) {
-                var src = URL.createObjectURL(event.target.files[0]);
-                var preview = document.getElementById("file-ip-1-preview");
-                preview.src = src;
-                preview.style.display = "block";
-            }
-        }
-
-        
-
-    </script> --}}
-    
-    {{-- <script>
-
-        $(document).ready(function(){
-
-            $('#wilayah').on('change',function(){
-
-                var regionsId = $(this).val(); 
-                if(regionsId){
-                    $.ajax({
-                        url:'/recruit/'+regionsId, 
-                        type:'GET', 
-                        data:{"_token":"{{ csrf_token() }}"}, 
-                        dataType:"json", 
-                        success:function(data){ 
-
-                            if(data.length > 0){
-                                $('#posisi').empty();
-                                $('#posisi').append('<option hidden>Pilih Posisi</option>'); 
-                                $.each(data, function(index, showdata){
-                                $('select[name="workfield_id"]').append('<option value="'+ showdata.id +'">' + showdata.name+ '</option>');
-                                })
-                            }else{
-                                $('#posisi').empty();
-                                $('#posisi').append('<option>Tidak ada lowongan </option>'); 
-                            }
-
-                        }
-                    }); 
-                }
-
-            })
-
-        })
-    </script> --}}
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
