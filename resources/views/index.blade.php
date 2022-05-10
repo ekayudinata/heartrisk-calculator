@@ -126,7 +126,7 @@
                                             <input type="number" class="form-control" placeholder="Masukkan usia" name="" required>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
-                                        <a href="" type="button" class="btn btn-success float-right"> <i class="fas fa-ad"></i> Hitung Resiko Saya</a>
+                                        <a href="" type="submit" class="btn btn-success float-right"> <i class="fas fa-ad"></i> Hitung Resiko Saya</a>
                                     </div>
                                 </div>
                             </div>

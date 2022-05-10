@@ -43,21 +43,21 @@ class HeartRiskCalculatorController extends Controller
                                 }
                             break; 
 
-                            case '<120': 
+                            case '120-139': 
                                 if(  $bmi < 20){
-                                    $percentRiskOfHeartDisease  = 1; 
+                                    $percentRiskOfHeartDisease  = 2; 
                                 }
                                 if( ($bmi >= 20) && ($bmi < 25)  ){
-                                    $percentRiskOfHeartDisease  = 1; 
+                                    $percentRiskOfHeartDisease  = 2; 
                                 }
                                 if( ($bmi >= 25) && ($bmi < 30)  ){
                                     $percentRiskOfHeartDisease  = 2; 
                                 }
                                 if( ($bmi >= 30) && ($bmi < 35)  ){
-                                    $percentRiskOfHeartDisease  = 2; 
+                                    $percentRiskOfHeartDisease  = 3; 
                                 }
                                 if( $bmi >= 35 ){
-                                    $percentRiskOfHeartDisease  = 2; 
+                                    $percentRiskOfHeartDisease  = 3; 
                                 }
                             break;
                         }
@@ -76,6 +76,9 @@ class HeartRiskCalculatorController extends Controller
 
             }
         }
+
+
+        
 
     }
 
