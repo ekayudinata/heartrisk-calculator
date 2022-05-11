@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     {{-- <title>OMSA Medic | {{ $title }}</title> --}}
-    <title>OMSA Medic | Heart Risk Calculator</title>
+    <title>OMSA Medic | @lang('index.title')</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favico/favicon-32x32.png">
@@ -75,11 +75,14 @@
         </div>
     </nav>
 
+    @php
+        $lang = Request::segment(1)
+    @endphp
     <div class="container mt-4">
         {{-- <h3 class="mb-5 mt-5 text-center"><b>{{ $title }}</b> - OMSA MEDIC</h3> --}}
-        <h3 class="mb-5 mt-5 text-center"><b>Heart Risk Calculator</b> - OMSA MEDIC</h3>
+        <h3 class="mb-5 mt-5 text-center"><b>@lang('index.welcome')</b> - OMSA MEDIC</h3>
         
-        <form action="/hearriskcalculate" method="post" enctype="multipart/form-data">
+        <form action="/hearriskcalculate/{{ $lang }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="container-fluid">
                 <div class="row">
@@ -90,21 +93,21 @@
                                     <div class="card-body">
                                         <div class="form-group mb-2">
                                             <div>
-                                                <label>Jenis Kelamin Anda</label>
+                                                <label>@lang('index.gender.label')</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                               <input class="form-check-input" type="radio" name="type" value="L" checked>
-                                              <label class="form-check-label">Laki-laki</label>
+                                              <label class="form-check-label">@lang('index.gender.l')</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                               <input class="form-check-input" type="radio" name="type" value="P">
-                                              <label class="form-check-label">Perempuan</label>
+                                              <label class="form-check-label">@lang('index.gender.p')</label>
                                             </div>
                                         </div>
                                         <div class="form-group mb-2">
-                                            <label>Berapa Usia Anda?</label>
+                                            <label>@lang('index.age.label')</label>
                                             <select class="form-select" aria-label="Default select example" name="agerange">
-                                                <option value="" selected>Pilih Usia Anda</option>
+                                                <option value="" selected>@lang('index.age.option')</option>
                                                 <option value="<=44">≤44</option>
                                                 <option value="45-49">45-49</option>
                                                 <option value="50-54">50-54</option>
@@ -115,11 +118,11 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Berapa Berat Badan Anda?</label>
+                                            <label>@lang('index.weight.label')</label>
                                             <div class="placeholder" data-placeholder="kg">
-                                                <input type="number" class="form-control" placeholder="Masukkan Berat" name="weight" required>
+                                                <input type="number" class="form-control" placeholder="@lang('index.weight.placeholder')" name="weight" required>
                                             </div>
-                                            <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
+                                            <span class="badge bg-danger mt-2">@lang('index.weight.note')</span>
                                         </div>
                                     </div>
                                 </div>
@@ -127,21 +130,21 @@
                                     <div class="card-body">
                                         <div class="form-group mb-2">
                                             <div>
-                                                <label>Apakah Anda merokok?</label>
+                                                <label>@lang('index.smoker.label')</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                               <input class="form-check-input" type="radio" name="smoking" value="Y" checked>
-                                              <label class="form-check-label">Ya</label>
+                                              <label class="form-check-label">@lang('index.smoker.y')</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                               <input class="form-check-input" type="radio" name="smoking" value="N">
-                                              <label class="form-check-label">Tidak</label>
+                                              <label class="form-check-label">@lang('index.smoker.n')</label>
                                             </div>
                                         </div>
                                         <div class="form-group mb-2">
-                                            <label>Berapa tekanan darah atas/sistol Anda?</label>
+                                            <label>@lang('index.blood.label')</label>
                                             <select class="form-select" aria-label="Default select example" name="bloodpressure">
-                                                <option value="" selected>Pilih tekanan darah atas/sistol Anda</option>
+                                                <option value="" selected>@lang('index.blood.option')</option>
                                                 <option value="<120"> <120</option>
                                                 <option value="120-139">120-139</option>
                                                 <option value="140-159">140-159</option>
@@ -150,15 +153,15 @@
                                             </select>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label>Berapa tinggi badan Anda?</label>
+                                            <label>@lang('index.height.label')</label>
                                             <div class="placeholder" data-placeholder="cm">
-                                                <input type="number" class="form-control" placeholder="Masukkan Tinggi" name="height" required>
+                                                <input type="number" class="form-control" placeholder="@lang('index.height.placeholder')" name="height" required>
                                             </div>
-                                            <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
+                                            <span class="badge bg-danger mt-2">@lang('index.height.note')</span>
                                         </div>
                                         <div class="form-group">
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                <button class="btn me-md-2" type="submit" style="background-color: #e4b73a;">Hitung Resiko Saya</button>
+                                                <button class="btn me-md-2" type="submit" style="background-color: #e4b73a;">@lang('index.buttonCalculate')</button>
                                             </div>
                                             {{-- <a href="" type="button" class="btn btn-success float-end mb-3"> Hitung Resiko Saya</a> --}}
                                         </div>
@@ -174,7 +177,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group mb-4">
-                                    <h5>Risiko Jantung Anda</h5>
+                                    <h5>@lang('index.cardTittle')</h5>
                                     <h2 
                                     @if ( session("category") == 'Resiko Rendah')
                                     style="font-size: 60px;
@@ -201,8 +204,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="d-grid gap-2 justify-content">
-                                        <button class="btn me-md-2" type="button" style="background-color: #e4b73a;">Lihat Rekomendasi Paket</button>
-                                        <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;"  onClick="window.location.reload()">Hitung Ulang</button>
+                                        <button class="btn me-md-2" type="button" style="background-color: #e4b73a;">@lang('index.buttonRecomendation')</button>
+                                        <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;"  onClick="window.location.reload()">@lang('index.buttonRecount')</button>
                                     </div>
                                 </div>
                             </div>

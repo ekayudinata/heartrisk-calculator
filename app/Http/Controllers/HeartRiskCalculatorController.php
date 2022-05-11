@@ -11,7 +11,7 @@ class HeartRiskCalculatorController extends Controller
 
     }
   
-  public function calculate(Request $request){
+    public function calculate(Request $request, $lang){
 
         $bmi = $this->bmicalculate($request->weight, $request->height); 
         $gender = $request->type;
@@ -2696,20 +2696,38 @@ class HeartRiskCalculatorController extends Controller
             }
         }
 
-        if(($percentRiskOfHeartDisease >= 1) && ($percentRiskOfHeartDisease <= 4)){
-            return redirect('/')->with('heartriskpercent',$percentRiskOfHeartDisease )
-                                ->with('explain', 'Selamat, saat ini Anda memiliki Risiko Rendah (Low Risk). Tetap jaga kebiasaan hidup sehat Anda ya. Selain berolahraga, mengatur pola makan, dan tidur teratur, ada baiknya Anda juga mengecek kesehatan jantung Anda secara rutin.')
-                                ->with('category','Resiko Rendah');
-        }
-        if(($percentRiskOfHeartDisease >= 5) && ($percentRiskOfHeartDisease <= 19)){
-            return redirect('/')->with('heartriskpercent',$percentRiskOfHeartDisease )
-            ->with('explain', 'Wah! Risiko jantung Anda termasuk dalam kategori Sedang / Moderate Risk, yang berarti dalam 5-10 tahun ke depan Anda memiliki risiko 5-19% untuk mengalami sakit jantung. Yuk cegah sejak dini dengan skrining pemeriksaan jantung dan jaga hidup sehat!')
-            ->with('category','Resiko Sedang');   
-        }
-        if($percentRiskOfHeartDisease >= 20){
-            return redirect('/')->with('heartriskpercent',$percentRiskOfHeartDisease )
-            ->with('explain', 'Oh tidak! Anda memiliki Risiko Tinggi (High Risk) untuk terkena penyakit jantung. Ini akan berakibat buruk dalam 5-10 tahun ke depan jika tidak dilakukan pencegahan dan intervensi sejak dini. Jadi yuk ubah kebiasaan Anda ke pola hidup sehat (berolahraga, mengatur pola makan, tidur teratur, dll.) dan lakukan skrining jantung secara rutin.')
-            ->with('category','Resiko Tinggi');  
+        if ($lang == 'id') {
+            if(($percentRiskOfHeartDisease >= 1) && ($percentRiskOfHeartDisease <= 4)){
+                return redirect('/id')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                                    ->with('explain', 'Selamat, saat ini Anda memiliki Risiko Rendah (Low Risk). Tetap jaga kebiasaan hidup sehat Anda ya. Selain berolahraga, mengatur pola makan, dan tidur teratur, ada baiknya Anda juga mengecek kesehatan jantung Anda secara rutin.')
+                                    ->with('category','Resiko Rendah');
+            }
+            if(($percentRiskOfHeartDisease >= 5) && ($percentRiskOfHeartDisease <= 19)){
+                return redirect('/id')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                ->with('explain', 'Wah! Risiko jantung Anda termasuk dalam kategori Sedang / Moderate Risk, yang berarti dalam 5-10 tahun ke depan Anda memiliki risiko 5-19% untuk mengalami sakit jantung. Yuk cegah sejak dini dengan skrining pemeriksaan jantung dan jaga hidup sehat!')
+                ->with('category','Resiko Sedang');   
+            }
+            if($percentRiskOfHeartDisease >= 20){
+                return redirect('/id')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                ->with('explain', 'Oh tidak! Anda memiliki Risiko Tinggi (High Risk) untuk terkena penyakit jantung. Ini akan berakibat buruk dalam 5-10 tahun ke depan jika tidak dilakukan pencegahan dan intervensi sejak dini. Jadi yuk ubah kebiasaan Anda ke pola hidup sehat (berolahraga, mengatur pola makan, tidur teratur, dll.) dan lakukan skrining jantung secara rutin.')
+                ->with('category','Resiko Tinggi');  
+            }
+        } else {
+            if(($percentRiskOfHeartDisease >= 1) && ($percentRiskOfHeartDisease <= 4)){
+                return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                                    ->with('explain', "Congratulations, you currently have Low Risk. Keep up your healthy lifestyle. In addition to exercising, adjusting your diet, and sleeping regularly, it's a good idea to check your heart health regularly.")
+                                    ->with('category','Resiko Rendah');
+            }
+            if(($percentRiskOfHeartDisease >= 5) && ($percentRiskOfHeartDisease <= 19)){
+                return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                ->with('explain', "Wow! Your heart risk is included in the Moderate Risk category, which means that in the next 5-10 years you have a 5-19% risk of developing heart disease. Let's prevent it early by screening heart checks and maintaining a healthy life!")
+                ->with('category','Resiko Sedang');   
+            }
+            if($percentRiskOfHeartDisease >= 20){
+                return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
+                ->with('explain', "Oh no! You have a High Risk (High Risk) for heart disease. This will have bad consequences in the next 5-10 years if prevention and intervention are not carried out early. So let's change your habits to a healthy lifestyle (exercise, adjust your diet, sleep regularly, etc.) and do regular heart screening.")
+                ->with('category','Resiko Tinggi');  
+            }
         }
         
 

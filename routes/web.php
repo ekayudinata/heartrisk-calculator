@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeartRiskCalculatorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/{locale}', function ($locale) {
+    App::setLocale($locale);
     return view('index');
 });
 
-Route::post('/hearriskcalculate',[HeartRiskCalculatorController::class,'calculate']);
+Route::post('/hearriskcalculate/{lang}',[HeartRiskCalculatorController::class,'calculate']);
+// Route::post('/hearriskcalculate/id',[HeartRiskCalculatorController::class,'calculate']);
+// Route::post('/hearriskcalculate/en',[HeartRiskCalculatorController::class,'calculateEn']);
