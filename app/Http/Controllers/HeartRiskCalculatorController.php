@@ -1374,12 +1374,14 @@ class HeartRiskCalculatorController extends Controller
                                 ->with('category','Resiko Rendah');
         }
         if(($percentRiskOfHeartDisease >= 5) && ($percentRiskOfHeartDisease <= 19)){
-
-            return redirect('/')->with('success', 'Wah! Risiko jantung Anda termasuk dalam kategori Sedang / Moderate Risk, yang berarti dalam 5-10 tahun ke depan Anda memiliki risiko 5-19% untuk mengalami sakit jantung. Yuk cegah sejak dini dengan skrining pemeriksaan jantung dan jaga hidup sehat!');
+            return redirect('/')->with('heartriskpercent',$percentRiskOfHeartDisease )
+            ->with('explain', 'Wah! Risiko jantung Anda termasuk dalam kategori Sedang / Moderate Risk, yang berarti dalam 5-10 tahun ke depan Anda memiliki risiko 5-19% untuk mengalami sakit jantung. Yuk cegah sejak dini dengan skrining pemeriksaan jantung dan jaga hidup sehat!')
+            ->with('category','Resiko Sedang');   
         }
         if($percentRiskOfHeartDisease >= 20){
-        
-            return redirect('/')->with('success', 'Oh tidak! Anda memiliki Risiko Tinggi (High Risk) untuk terkena penyakit jantung. Ini akan berakibat buruk dalam 5-10 tahun ke depan jika tidak dilakukan pencegahan dan intervensi sejak dini. Jadi yuk ubah kebiasaan Anda ke pola hidup sehat (berolahraga, mengatur pola makan, tidur teratur, dll.) dan lakukan skrining jantung secara rutin.');
+            return redirect('/')->with('heartriskpercent',$percentRiskOfHeartDisease )
+            ->with('explain', 'Oh tidak! Anda memiliki Risiko Tinggi (High Risk) untuk terkena penyakit jantung. Ini akan berakibat buruk dalam 5-10 tahun ke depan jika tidak dilakukan pencegahan dan intervensi sejak dini. Jadi yuk ubah kebiasaan Anda ke pola hidup sehat (berolahraga, mengatur pola makan, tidur teratur, dll.) dan lakukan skrining jantung secara rutin.')
+            ->with('category','Resiko Tinggi');  
         }
         
 

@@ -27,6 +27,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favico/favicon-16x16.png">
     <link rel="manifest" href="/img/favico/site.webmanifest"> 
     <style>
+
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+
         h1 {
             display: flex;
             font-size: 16px;
@@ -40,6 +48,20 @@
         }
         h1:after {
             margin-left: 10px
+        }
+
+        .placeholder {
+            position: relative;
+            display: inline-block;
+        }
+
+        .placeholder::after {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            content: attr(data-placeholder);
+            pointer-events: none;
+            opacity: 0.6;
         }
       </style>
 
@@ -83,16 +105,20 @@
                                             <label>Berapa Usia Anda?</label>
                                             <select class="form-select" aria-label="Default select example" name="agerange">
                                                 <option value="" selected>Pilih Usia Anda</option>
-                                                <option value="<=44"><= 44</option>
+                                                <option value="<=44">≤44</option>
+                                                <option value="45-49">45-49</option>
+                                                <option value="50-54">50-54</option>
                                                 <option value="55-59">55-59</option>
                                                 <option value="60-64">60-64</option>
                                                 <option value="65-69">65-69</option>
-                                                <option value="≥70">≥70</option>
+                                                <option value=">=70">≥70</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Berapa Berat Badan Anda?</label>
-                                            <input type="number" class="form-control" placeholder="Masukkan berat badan" name="weight" required>
+                                            <div class="placeholder" data-placeholder="kg">
+                                                <input type="number" class="form-control" placeholder="Masukkan Berat" name="weight" required>
+                                            </div>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
                                     </div>
@@ -116,16 +142,18 @@
                                             <label>Berapa tekanan darah atas/sistol Anda?</label>
                                             <select class="form-select" aria-label="Default select example" name="bloodpressure">
                                                 <option value="" selected>Pilih tekanan darah atas/sistol Anda</option>
-                                                <option value="<120"> <120 </option>
+                                                <option value="<120"> <120</option>
                                                 <option value="120-139">120-139</option>
                                                 <option value="140-159">140-159</option>
                                                 <option value="160-179">160-179</option>
-                                                <option value=">=180">≥180</option>
+                                                <option value=">179">>179</option>
                                             </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Berapa tinggi badan Anda?</label>
-                                            <input type="number" class="form-control" placeholder="Masukkan Tinggi" name="height" required>
+                                            <div class="placeholder" data-placeholder="cm">
+                                                <input type="number" class="form-control" placeholder="Masukkan Tinggi" name="height" required>
+                                            </div>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
                                         <div class="form-group">
@@ -147,8 +175,28 @@
                             <div class="card-body">
                                 <div class="form-group mb-4">
                                     <h5>Risiko Jantung Anda</h5>
-                                    <h2 style="font-size: 60px; color: green;">{{ session("heartriskpercent")}}%</h2>
-                                    <p style="color: green;">{{ session("category")}}</p>
+                                    <h2 
+                                    @if ( session("category") == 'Resiko Rendah')
+                                    style="font-size: 60px;
+                                    color: green;"
+                                    @elseif(session("category") == 'Resiko Sedang')
+                                    style="font-size: 60px;
+                                    color: #dcb434;"
+                                    @elseif(session("category") == 'Resiko Tinggi')
+                                    style="font-size: 60px;
+                                    color: #c0232f;;"
+                                    @endif
+                                     >{{ session("heartriskpercent")}}%</h2>
+
+                                    <p @if ( session("category") == 'Resiko Rendah')
+                                            style="color: green;"
+                                        @elseif(session("category") == 'Resiko Sedang')
+                                            style="color: #dcb434;"
+                                        @elseif(session("category") == 'Resiko Tinggi')
+                                            style="color: #c0232f;"
+                                        @endif                                
+                                        >{{ session("category")}}</p>
+
                                     <p><span>{{ session("explain")  }}</span></p>
                                 </div>
                                 <div class="form-group">
