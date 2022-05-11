@@ -47,21 +47,9 @@
 
 <body>
 
-    @if (session()->has('success'))
-    <script>
-        Swal.fire({
-            title: 'LAMARAN TERKIRIM',
-            text: '{{ session("success")  }}',
-            icon: 'success',
-            showConfirmButton: false, 
-            showCloseButton:true
-        })
-    </script>
-    @endif
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <div class="container">
-            <a href="https://www.omsamedic.com/" class="navbar-brand"><img src="img/logo.png" alt="" width="150px"></a>
+            <a href="https://www.omsamedic.com/" class="navbar-brand"><img src="img/logo.png" alt="" width="200px"></a>
         </div>
     </nav>
 
@@ -73,12 +61,12 @@
             @csrf
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 mb-3">
                         <div class="card">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="card-body">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group mb-2">
                                             <div>
                                                 <label>Jenis Kelamin Anda</label>
                                             </div>
@@ -91,7 +79,7 @@
                                               <label class="form-check-label">Perempuan</label>
                                             </div>
                                         </div>
-                                        <div class="form-group mb-3">
+                                        <div class="form-group mb-2">
                                             <label>Berapa Usia Anda?</label>
                                             <select class="form-select" aria-label="Default select example" name="agerange">
                                                 <option value="" selected>Pilih Usia Anda</option>
@@ -102,7 +90,7 @@
                                                 <option value="≥70">≥70</option>
                                             </select>
                                         </div>
-                                        <div class="form-group mb-3">
+                                        <div class="form-group">
                                             <label>Berapa Berat Badan Anda?</label>
                                             <input type="number" class="form-control" placeholder="Masukkan berat badan" name="weight" required>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
@@ -111,7 +99,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="card-body">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group mb-2">
                                             <div>
                                                 <label>Apakah Anda merokok?</label>
                                             </div>
@@ -124,7 +112,7 @@
                                               <label class="form-check-label">Tidak</label>
                                             </div>
                                         </div>
-                                        <div class="form-group mb-3">
+                                        <div class="form-group mb-2">
                                             <label>Berapa tekanan darah atas/sistol Anda?</label>
                                             <select class="form-select" aria-label="Default select example" name="bloodpressure">
                                                 <option value="" selected>Pilih tekanan darah atas/sistol Anda</option>
@@ -135,20 +123,44 @@
                                                 <option value=">=180">≥180</option>
                                             </select>
                                         </div>
-                                        <div class="form-group mb-3">
+                                        <div class="form-group mb-4">
                                             <label>Berapa tinggi badan Anda?</label>
                                             <input type="number" class="form-control" placeholder="Masukkan Tinggi" name="height" required>
                                             <span class="badge bg-danger mt-2">*Tidak berlaku angka desimal</span>
                                         </div>
-                                        <input type="submit" class="btn btn-success float-right">
-                                        {{-- <a type="submit" class="btn btn-success float-right"> <i class="fas fa-ad"></i> Hitung Resiko Saya</a> --}}
+                                        <div class="form-group">
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <button class="btn me-md-2" type="submit" style="background-color: #e4b73a;">Hitung Resiko Saya</button>
+                                            </div>
+                                            {{-- <a href="" type="button" class="btn btn-success float-end mb-3"> Hitung Resiko Saya</a> --}}
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                             
                         </div> 
                     </div>
-                    
+                    @if ( session()->has('heartriskpercent') )
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group mb-4">
+                                    <h5>Risiko Jantung Anda</h5>
+                                    <h2 style="font-size: 60px; color: green;">{{ session("heartriskpercent")}}%</h2>
+                                    <p style="color: green;">{{ session("category")}}</p>
+                                    <p><span>{{ session("explain")  }}</span></p>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-grid gap-2 justify-content">
+                                        <button class="btn me-md-2" type="button" style="background-color: #e4b73a;">Lihat Rekomendasi Paket</button>
+                                        <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;">Hitung Ulang</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </form>
