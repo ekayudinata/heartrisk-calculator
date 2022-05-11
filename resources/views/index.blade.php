@@ -202,7 +202,7 @@
                                 <div class="form-group">
                                     <div class="d-grid gap-2 justify-content">
                                         <button class="btn me-md-2" type="button" style="background-color: #e4b73a;">Lihat Rekomendasi Paket</button>
-                                        <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;">Hitung Ulang</button>
+                                        <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;"  onClick="window.location.reload()">Hitung Ulang</button>
                                     </div>
                                 </div>
                             </div>
