@@ -1369,7 +1369,7 @@ class HeartRiskCalculatorController extends Controller
         }
 
         if( $gender == 'P' ){
-            if($smoking == 'Y'){
+            if($smoking == 'N'){
                 switch ($age) {
                     case "<=44":
                         switch($bloodpressure){
@@ -2716,17 +2716,20 @@ class HeartRiskCalculatorController extends Controller
             if(($percentRiskOfHeartDisease >= 1) && ($percentRiskOfHeartDisease <= 4)){
                 return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
                                     ->with('explain', "Congratulations, you currently have Low Risk. Keep up your healthy lifestyle. In addition to exercising, adjusting your diet, and sleeping regularly, it's a good idea to check your heart health regularly.")
-                                    ->with('category','Resiko Rendah');
+                                    ->with('category','Resiko Rendah'); 
+                                   
             }
             if(($percentRiskOfHeartDisease >= 5) && ($percentRiskOfHeartDisease <= 19)){
                 return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
                 ->with('explain', "Wow! Your heart risk is included in the Moderate Risk category, which means that in the next 5-10 years you have a 5-19% risk of developing heart disease. Let's prevent it early by screening heart checks and maintaining a healthy life!")
-                ->with('category','Resiko Sedang');   
+                ->with('category','Resiko Sedang'); 
+                 
             }
             if($percentRiskOfHeartDisease >= 20){
                 return redirect('/en')->with('heartriskpercent',$percentRiskOfHeartDisease )
                 ->with('explain', "Oh no! You have a High Risk (High Risk) for heart disease. This will have bad consequences in the next 5-10 years if prevention and intervention are not carried out early. So let's change your habits to a healthy lifestyle (exercise, adjust your diet, sleep regularly, etc.) and do regular heart screening.")
-                ->with('category','Resiko Tinggi');  
+                ->with('category','Resiko Tinggi'); 
+                 
             }
         }
         
@@ -2735,8 +2738,8 @@ class HeartRiskCalculatorController extends Controller
 
     protected function bmicalculate($weight, $height){
         $height_m = $height/100;
-        $hasil = $weight/$height_m;
-        return $hasil*$hasil; 
+        $heightsquare = $height_m * $height_m; 
+        return $weight/$heightsquare; 
     }
     
 
