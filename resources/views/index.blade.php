@@ -205,33 +205,67 @@
                             <div class="card-body">
                                 <div class="form-group mb-4">
                                     <h5>@lang('index.cardTittle')</h5>
-                                    <h2 
-                                    @if ( session("category") == 'Resiko Rendah')
-                                    style="font-size: 60px;
-                                    color: green;"
-                                    @elseif(session("category") == 'Resiko Sedang')
-                                    style="font-size: 60px;
-                                    color: #dcb434;"
-                                    @elseif(session("category") == 'Resiko Tinggi')
-                                    style="font-size: 60px;
-                                    color: #c0232f;;"
-                                    @endif
-                                     >{{ session("heartriskpercent")}}%</h2>
 
-                                    <p @if ( session("category") == 'Resiko Rendah')
-                                            style="color: green;"
-                                        @elseif(session("category") == 'Resiko Sedang')
-                                            style="color: #dcb434;"
-                                        @elseif(session("category") == 'Resiko Tinggi')
-                                            style="color: #c0232f;"
-                                        @endif                                
-                                        >{{ session("category")}}</p>
+                                    @if ($lang == 'id')
+                                            <h2 
+                                            @if ( session("category") == 'Resiko Rendah')
+                                            style="font-size: 60px;
+                                            color: green;"
+                                            @elseif(session("category") == 'Resiko Sedang')
+                                            style="font-size: 60px;
+                                            color: #dcb434;"
+                                            @elseif(session("category") == 'Resiko Tinggi')
+                                            style="font-size: 60px;
+                                            color: #c0232f;;"
+                                            @endif
+                                            >{{ session("heartriskpercent")}}%</h2>
+                                  
+
+                                            <p @if ( session("category") == 'Resiko Rendah')
+                                                    style="color: green;"
+                                                @elseif(session("category") == 'Resiko Sedang')
+                                                    style="color: #dcb434;"
+                                                @elseif(session("category") == 'Resiko Tinggi')
+                                                    style="color: #c0232f;"
+                                                @endif                                
+                                                >{{ session("category")}}</p>
+                                        
+                                            
+                                            @else
+                                            
+                                                <h2 
+                                                @if ( session("category") == 'Low Risk')
+                                                style="font-size: 60px;
+                                                color: green;"
+                                                @elseif(session("category") == 'Medium Risk')
+                                                style="font-size: 60px;
+                                                color: #dcb434;"
+                                                @elseif(session("category") == 'High risk')
+                                                style="font-size: 60px;
+                                                color: #c0232f;;"
+                                                @endif
+                                                >{{ session("heartriskpercent")}}%</h2>
+                                    
+
+                                                <p @if ( session("category") == 'Low Risk')
+                                                        style="color: green;"
+                                                    @elseif(session("category") == 'Medium Risk')
+                                                        style="color: #dcb434;"
+                                                    @elseif(session("category") == 'High risk')
+                                                        style="color: #c0232f;"
+                                                    @endif                                
+                                                    >{{ session("category")}}</p>
+                                        @endif
 
                                     <p><span>{{ session("explain")  }}</span></p>
                                 </div>
                                 <div class="form-group">
                                     <div class="d-grid gap-2 justify-content">
-                                        <button class="btn me-md-2" type="button" style="background-color: #e4b73a;">@lang('index.buttonRecomendation')</button>
+                                        @if ($lang == 'id')
+                                        <a href="https://www.omsamedic.com/medical-check-up/" class="btn me-md-2" type="button" style="background-color: #e4b73a;">@lang('index.buttonRecomendation')</a>
+                                    @else
+                                        <a href="https://www.omsamedic.com/en/health-check-up/" class="btn me-md-2" type="button" style="background-color: #e4b73a;">@lang('index.buttonRecomendation')</a>
+                                    @endif
                                         <button class="btn me-md-2 text-white" type="button" style="background-color: #5c050d;"  onClick="window.location.reload()">@lang('index.buttonRecount')</button>
                                     </div>
                                 </div>
